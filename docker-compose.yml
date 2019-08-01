@@ -1,0 +1,36 @@
+version: '2'
+services:
+  tainan-garbage:
+    build: .
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    volumes:
+      - ./src:/home/dormnet/src
+    links:
+      - mongo
+    networks:
+      - mongo-network
+      - proxy
+    expose:
+      - "3000"
+
+  mongo:
+     image: mongo:latest
+     restart: always
+     networks:
+      - mongo-network
+     volumes:
+      - ./data:/data/db
+     logging:
+       driver: "none"
+
+networks:
+   mongo-network:
+    driver: bridge
+   proxy:
+     external:
+       name: dog_proxy

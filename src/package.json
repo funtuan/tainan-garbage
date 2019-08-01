@@ -1,0 +1,17 @@
+{
+  "name": "tainan-garbage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "supervisor main.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "linebot": "^1.5.3",
+    "mongodb": "^3.3.0-beta2",
+    "request": "^2.88.0"
+  }
+}
