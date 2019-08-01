@@ -1,4 +1,4 @@
-const { bot } = require('./linebot.js');
+const {bot} = require('./linebot.js');
 
-console.log('ok!');
+console.log('server start!');
 bot.listen('/tainan-garbage', 3000);

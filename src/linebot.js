@@ -26,13 +26,13 @@ const bot = linebot({
   channelAccessToken: config.CHANNEL_ACCESS_TOKEN,
 });
 
-bot.on('message', function (event) {
+bot.on('message', function(event) {
   console.log(new Date().toLocaleString());
   // console.log(event.message);
   if ( event.message.type === 'location') {
-    const lat = event.message.latitude,
-          lon = event.message.longitude;
-    loadData.getNicePoint (new Date(), lat, lon).then((points)=>{
+    const lat = event.message.latitude;
+    const lon = event.message.longitude;
+    loadData.getNicePoint(new Date(), lat, lon).then((points)=>{
       console.log(event.message.address, lat, lon, '附近數量：', points.length);
       const json = {
         type: 'list',
@@ -42,10 +42,11 @@ bot.on('message', function (event) {
       if (points.length === 0) {
         return event.reply(lineTemplate.fountNot(json, new Date()));
       }
-      return event.reply(lineTemplate.rankSelect(`近期有 ${points.length} 個垃圾清運點`, json));
+      return event.reply(
+          lineTemplate.rankSelect(`近期有 ${points.length} 個垃圾清運點`, json)
+      );
       // return event.reply(lineTemplate.stopList(points));
-    })
-
+    });
   } else {
     if (event.source.type === 'user' && event.message.text && event.message.text.indexOf(':') === -1) {
       console.log(event);
@@ -57,12 +58,12 @@ bot.on('message', function (event) {
   }
 });
 
-bot.on('postback', function (event) {
+bot.on('postback', function(event) {
   const json = JSON.parse(event.postback.data);
   let datetime = new Date();
   if (event.postback.params && event.postback.params.datetime) {
     datetime = new Date(event.postback.params.datetime);
-  }else if (json.datetime) {
+  } else if (json.datetime) {
     datetime = new Date(json.datetime);
   }
   console.log(event.postback);
@@ -74,15 +75,18 @@ bot.on('postback', function (event) {
         });
         break;
       case 'list':
-        loadData.getNicePoint (datetime, json.lat, json.lon, json.minm).then((points)=>{
-          if (points.length === 0) {
-            return event.reply(lineTemplate.fountNot(json, datetime));
-          }
-          return event.reply(lineTemplate.stopList(points, json.label, datetime));
-        });
+        loadData.getNicePoint(datetime, json.lat, json.lon, json.minm)
+            .then((points)=>{
+              if (points.length === 0) {
+                return event.reply(lineTemplate.fountNot(json, datetime));
+              }
+              return event.reply(
+                  lineTemplate.stopList(points, json.label, datetime)
+              );
+            });
         break;
       case 'selectTime':
-        loadData.getNicePoint (datetime, json.lat, json.lon).then((points)=>{
+        loadData.getNicePoint(datetime, json.lat, json.lon).then((points)=>{
           // console.log(event.message.address, json.lat, json.lon, '附近數量：', points.length);
           if (points.length === 0) {
             return event.reply(lineTemplate.fountNot(json, datetime));
@@ -98,11 +102,10 @@ bot.on('postback', function (event) {
         // return event.reply('功能尚未開放，敬請期待');
         break;
       default:
-
     }
   }
 });
 
 module.exports = {
   bot,
-}
+};
