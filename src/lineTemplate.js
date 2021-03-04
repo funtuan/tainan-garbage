@@ -27,16 +27,16 @@ module.exports = {
       for (let k = 0; k < 3; k++) {
         const p = points[i*3+k];
         if (p) {
-          text = text + `${Math.floor(p.atTime/60)}:${p.atTime%60<10?'0'+p.atTime%60:p.atTime%60} ${p.StopAddr}\n`;
+          text = text + `${Math.floor(p.time/60)}:${p.time%60<10?'0'+p.time%60:p.time%60} ${p.addr}\n`;
           actions.push({
             'type': 'postback',
-            // "label": `${Math.floor(p.atTime/60)}:${p.atTime%60<10?'0'+p.atTime%60:p.atTime%60} 距離${Math.ceil(p.distance)}m ${p.recycle?'有回收':'無回收'}`,
-            'label': `${p.recycle?'＊':''}${Math.floor(p.atTime/60)}:${p.atTime%60<10?'0'+p.atTime%60:p.atTime%60} 離${Math.ceil(p.distance)}m ${p.StopAddr.substr(0, 4)}..`,
-            'text': `${Math.floor(p.atTime/60)}:${p.atTime%60<10?'0'+p.atTime%60:p.atTime%60} ${p.StopAddr}`,
+            // "label": `${Math.floor(p.time/60)}:${p.time%60<10?'0'+p.time%60:p.time%60} 距離${Math.ceil(p.distance)}m ${p.recycle?'有回收':'無回收'}`,
+            'label': `${p.recycle?'＊':''}${Math.floor(p.time/60)}:${p.time%60<10?'0'+p.time%60:p.time%60} 離${Math.ceil(p.distance)}m ${p.addr.substr(0, 4)}..`,
+            'text': `${Math.floor(p.time/60)}:${p.time%60<10?'0'+p.time%60:p.time%60} ${p.addr}`,
             'data': JSON.stringify({
               'type': 'show',
-              'RouteId': p.RouteId,
-              'StopId': p.StopId,
+              'pid': p.pid,
+              datetime,
             }),
           });
         }

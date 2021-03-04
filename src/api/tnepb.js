@@ -1,5 +1,33 @@
 const request = require('request');
 const TNEPB = 'http://clean.tnepb.gov.tw';
+const DAYLIST = {
+  '日': 'Sun',
+  '一': 'Mon',
+  '二': 'Tue',
+  '三': 'Wed',
+  '四': 'Thu',
+  '五': 'Fri',
+  '六': 'Sat',
+};
+
+/**
+ * 取得區域清單
+ * @param  {String} Area 區域
+ * @return {Array}       清運點清單
+ */
+function getAreas() {
+  return new Promise((resolve, reject) => {
+    tnepbRequest('/api/Region', {
+    }, 5, (error, json) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(json);
+      }
+    });
+  });
+}
+
 
 /**
  * 取得區域中的清運點API
@@ -40,7 +68,7 @@ function getPoint(stop) {
         reject(error);
       } else {
         json = json.map((one) => {
-          one.ScheduleInfo = parseScheduleInfo(one.ScheduleInfo)[0];
+          one.ScheduleInfo = parseScheduleInfo(one.ScheduleInfo, one.RecycleDate)[0];
           return one;
         });
         const point = {...stop, ...json[0]};
@@ -84,20 +112,28 @@ function tnepbRequest(api, form, n, callback) {
 /**
  * 解析清運點時間資訊
  * @param  {Object}  scheduleInfos 清運時間表
+ * @param  {Object}  recycleDate   回收時間
  * @return {Object}                清運時間戳表
  */
-function parseScheduleInfo(scheduleInfos) {
+function parseScheduleInfo(scheduleInfos, recycleDate) {
+  const recycles = recycleDate.split(',').map((one) => DAYLIST[one]);
   return scheduleInfos.map((scheduleInfo) => {
     for (const [key, value] of Object.entries(scheduleInfo)) {
       if (value.indexOf(':') === -1) {
-        scheduleInfo[key] = -1;
+        scheduleInfo[key] = {
+          open: false,
+        };
       } else {
         let time = 0;
         value.split(':').map((one) => {
           time = time * 60;
           time += parseInt(one);
         });
-        scheduleInfo[key] = time;
+        scheduleInfo[key] = {
+          open: true,
+          time,
+          recycle: recycles.some((one) => one === key),
+        };
       }
     }
     return scheduleInfo;
@@ -105,6 +141,7 @@ function parseScheduleInfo(scheduleInfos) {
 }
 
 module.exports = {
+  getAreas,
   getAreaPoint,
   getPoint,
 };

@@ -1,6 +1,6 @@
 const config = require('../config.js');
 const {GarbageDB} = require('./GarbageDB.js');
-const {getAreaPoint, getPoint} = require('./tnepb-api.js');
+const {getAreaPoint, getPoint} = require('../api/tnepb.js');
 
 // 每分鐘移動最大距離
 const MINM = 250;
