@@ -1,6 +1,2 @@
 
-src/node_modules/
-
-data/
-
-src/config\.js
+node_modules
