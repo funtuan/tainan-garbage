@@ -115,14 +115,6 @@ async function search({
   const week = DAYLIST[date.getDay()];
   const time = date.getHours(date) * 60 + date.getMinutes(date);
   const targets = [];
-  console.log({
-    lat,
-    lon,
-    date,
-    minm,
-    week,
-    time,
-  });
 
   const cell = 11;
   const cellLength = 0.015;

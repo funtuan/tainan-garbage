@@ -12,7 +12,6 @@ const bot = linebot({
 });
 
 bot.on('message', function(event) {
-  console.log(new Date().toLocaleString());
   // console.log(event.message);
   if ( event.message.type === 'location') {
     const lat = event.message.latitude;
@@ -39,7 +38,7 @@ bot.on('message', function(event) {
     });
   } else {
     if (event.source.type === 'user' && event.message.text && event.message.text.indexOf(':') === -1) {
-      console.log(event);
+      // console.log(event);
       // event.reply('想追垃圾車？請點選左下角『＋』\n在位置資訊選擇你目前位置．').then(function (data) {
       // }).catch(function (error) {
       // });
@@ -56,7 +55,7 @@ bot.on('postback', function(event) {
   } else if (json.datetime) {
     datetime = new Date(json.datetime);
   }
-  console.log(event.postback);
+  // console.log(event.postback);
   if (json.type) {
     switch (json.type) {
       case 'show':
