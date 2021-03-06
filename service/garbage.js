@@ -116,7 +116,7 @@ async function search({
   const time = date.getHours(date) * 60 + date.getMinutes(date);
   const targets = [];
 
-  const cell = 11;
+  const cell = 9;
   const cellLength = 0.015;
   const center = centerLatLon(cellLength, {
     lat,
