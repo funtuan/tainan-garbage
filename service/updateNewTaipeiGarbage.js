@@ -1,6 +1,5 @@
 const axios = require('axios');
 const Point = require('../model/Point');
-const parseString = require('xml2js').parseString;
 const newTaipeiGetTrashUrl = 'https://data.ntpc.gov.tw/api/datasets/EDC3AD26-8AE7-4916-A00B-BC6048D19BF8/json';
 
 
