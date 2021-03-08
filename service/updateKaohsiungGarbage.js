@@ -61,7 +61,7 @@ async function updatePoint(one) {
     },
     ref: '高雄市環境保護局',
   };
-  if (obj.lat !== '' && obj.lon !== '') {
+  if (time && obj.lat !== '' && obj.lon !== '') {
     await Point.updateOne({
       pid,
     }, obj, {upsert: true, setDefaultsOnInsert: true});
@@ -74,7 +74,7 @@ module.exports = async () => {
   csv()
       .fromStream(request.get(kaohsiungGetTrashUrl))
       .subscribe( async (json)=>{
-        updatePoint({
+        await updatePoint({
           id,
           ...json,
         });
