@@ -19,9 +19,11 @@ const schema = new Schema({
   },
   lat: {
     type: Schema.Types.Double,
+    sparse: true,
   },
   lon: {
     type: Schema.Types.Double,
+    sparse: true,
   },
   schedule: {
     mon: {
