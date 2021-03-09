@@ -12,7 +12,7 @@ const bot = linebot({
 });
 
 bot.on('message', function(event) {
-  console.log(new Date().toString());
+  console.log(new Date().toString(), event.message.type);
   // console.log(event.message);
   if ( event.message.type === 'location') {
     const lat = event.message.latitude;
