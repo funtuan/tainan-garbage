@@ -19,43 +19,45 @@ const schema = new Schema({
   },
   lat: {
     type: Schema.Types.Double,
+    sparse: true,
   },
   lon: {
     type: Schema.Types.Double,
+    sparse: true,
   },
   schedule: {
     mon: {
-      open: Boolean,
+      open: {type: Boolean, sparse: true},
       time: Number,
       recycle: Boolean,
     },
     tue: {
-      open: Boolean,
+      open: {type: Boolean, sparse: true},
       time: Number,
       recycle: Boolean,
     },
     wed: {
-      open: Boolean,
+      open: {type: Boolean, sparse: true},
       time: Number,
       recycle: Boolean,
     },
     thu: {
-      open: Boolean,
+      open: {type: Boolean, sparse: true},
       time: Number,
       recycle: Boolean,
     },
     fri: {
-      open: Boolean,
+      open: {type: Boolean, sparse: true},
       time: Number,
       recycle: Boolean,
     },
     sat: {
-      open: Boolean,
+      open: {type: Boolean, sparse: true},
       time: Number,
       recycle: Boolean,
     },
     sun: {
-      open: Boolean,
+      open: {type: Boolean, sparse: true},
       time: Number,
       recycle: Boolean,
     },
