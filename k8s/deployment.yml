@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: tainan-garbage
+spec:
+  selector:
+    matchLabels:
+      app: tainan-garbage
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tainan-garbage
+    spec:
+      containers:
+      - name: tainan-garbage
+        image: funtuan/tainan-garbage
+        ports: 
+        - containerPort: 80
+        env:
+        - name: MONGODB_URL
+          value: "mongodb://admin:password@10.128.152.228:27017/admin"
+        - name: CHANNEL_ID
+          value: "<CHANNEL_ID>"
+        - name: CHANNEL_SECRET
+          value: "<CHANNEL_SECRET>"
+        - name: CHANNEL_ACCESS_TOKEN
+          value: "<CHANNEL_ACCESS_TOKEN>"
+        - name: UPDATE_GARBAGE_TIME
+          value: "0 30 3 * * *"
