@@ -22,11 +22,13 @@
     "mongoose": "^5.11.18",
     "mongoose-double": "0.0.1",
     "node-cache": "^5.1.2",
+    "object-hash": "^3.0.0",
     "request": "^2.88.0",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-google": "^0.13.0"
+    "eslint": "^8.10.0",
+    "eslint-config-ftbackend": "0.0.3",
+    "eslint-config-google": "^0.14.0"
   }
 }

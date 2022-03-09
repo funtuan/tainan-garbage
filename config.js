@@ -4,5 +4,6 @@ module.exports = {
   CHANNEL_ACCESS_TOKEN: process.env.CHANNEL_ACCESS_TOKEN,
 
   MAXTIME: 6, // 小時
-  MAXRANGE: 10, // 公里
-};
+  MAXRANGE: 5, // 公里
+  UPDATE_INTERVAL: 24 * 60 * 60 * 1000, // 每日更新
+}
