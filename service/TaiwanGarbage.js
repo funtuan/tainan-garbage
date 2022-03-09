@@ -11,6 +11,7 @@ class TaiwanGarbage {
   } = {}) {
     this.rawlink = rawlink
     this.maxDistance = maxDistance
+    this.maxLatLon = maxDistance / 100000
     this.alldata = []
     this.weekdata = [[], [], [], [], [], [], []]
     this.MINM = MINM
@@ -51,7 +52,15 @@ class TaiwanGarbage {
     const day = date.getDay()
     const time = date.getHours() * 60 + date.getMinutes()
     const points = this.weekdata[day]
-        .filter((item) => item.startTime > time + 1 && item.startTime < time + this.MAXTIME)
+        // 移除時間已過的點 & 距離過遠的點
+        .filter((item) =>
+          (item.startTime > time + 1) &&
+          (item.startTime < time + this.MAXTIME) &&
+          (item.lat < (lat + this.maxLatLon)) &&
+          (item.lat > (lat - this.maxLatLon)) &&
+          (item.lon < (lon + this.maxLatLon)) &&
+          (item.lon > (lon - this.maxLatLon)),
+        )
         .map((item) => {
           const distance = this.distanceCalc(lat, item.lat, lon, item.lon)
           const rank = (item.startTime - time) + distance * 2 * minm / this.MINM
