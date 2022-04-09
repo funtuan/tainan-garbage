@@ -17,7 +17,7 @@
     "dotenv": "^8.2.0",
     "linebot": "^1.5.3",
     "lru-cache": "^6.0.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "mongodb": "^3.3.0-beta2",
     "mongoose": "^5.11.18",
     "mongoose-double": "0.0.1",
